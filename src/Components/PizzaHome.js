@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import Pizza from "../images/Pizza.jpg";
 import axios from "axios";
 import * as yup from "yup";
+import styled from "styled-components";
 
 const formSchema = yup.object().shape({
   name: yup.string().required("Please provide your full name"),
@@ -12,6 +13,16 @@ const formSchema = yup.object().shape({
     .email("Please provide a valid email address")
     .required("Must include a valid email address"),
 });
+
+const HeroContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  `;
+  const StyledHero = styled.img`
+    height: 500px;
+  `;
 
 const PizzaHome = () => {
   const [formState, setFormState] = useState({
@@ -82,15 +93,24 @@ const PizzaHome = () => {
 
   return (
     <>
-      <img src={Pizza} />
+       <HeroContainer>
+        <StyledHero alt="delicious-pizza" className="pizza-hero" src={Pizza} />
+      </HeroContainer>
 
       <form onSubmit={submitForm}>
         <label>
-          <input id="name" type="text" name="name" value={formState.name} onChange={inputChange}></input>
-        </label>
+          <input id="name" type="text" name="name" value={formState.name} onChange={inputChange} data-cy="name"></input>
+
+          {errors.name.length > 0 ? (
+            <p className="error">{errors.name}</p>
+          ) : null}        </label>
 
         <label>
-          <input id="email" type="text" name="email" value={formState.email} onChange={inputChange}></input>
+          <input id="email" type="text" name="email" value={formState.email} onChange={inputChange} data-cy="email"></input>
+
+          {errors.email.length > 0 ? (
+            <p className="error">{errors.email}</p>
+          ) : null}
         </label>
 
         <Link to="/PizzaForm">
