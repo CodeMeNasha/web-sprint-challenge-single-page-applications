@@ -18,6 +18,24 @@ const formSchema = yup.object().shape({
 })
 
 const PizzaHome = () => {
+
+    const [formState, setFormState] = useState({
+        name: "",
+        email: "",
+    });
+
+
+    const submitForm = (event) => {
+        event.preventDefault();
+
+        axios
+        .post("https://reqres.in/", formState)
+    }
+
+
+
+
+
   return (
     <>
       <img src={Pizza} />
