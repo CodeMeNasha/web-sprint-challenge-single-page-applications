@@ -24,16 +24,25 @@ const PizzaHome = () => {
         email: "",
     });
 
-
+    const [name, setName] = useState([]);
+    
     const submitForm = (event) => {
         event.preventDefault();
 
         axios
         .post("https://reqres.in/", formState)
+        .then((response) => {
+            setName(response.data);
+
+            setFormState({
+                name: "",
+                //no email here
+            })
+        })
+        .catch((error) => {
+            console.log(error.response)
+        })
     }
-
-
-
 
 
   return (
